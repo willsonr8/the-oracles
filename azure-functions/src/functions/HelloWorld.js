@@ -8,6 +8,13 @@ app.http('HelloWorld', {
 
         const name = request.query.get('name') || await request.text() || 'world';
 
-        return { body: `Hello, ${name}!` };
+        return { status: 200, 
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+                    'Access-Control-Allow-Headers': 'Content-Tye',
+                    'Content-Type': 'application/json'
+                }, 
+                body: JSON.stringify({ message: `Hello, ${name}!` }) };
     }
 });
