@@ -4,8 +4,8 @@ import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button } from '@h
 export default function OracleNavbar() {
 
   return (
-    <div className="w-screen h-screen p-8 flex items-start justify-center">
-    <Navbar isBordered>
+    <div>
+      <Navbar isBordered>
         <NavbarBrand>
           <p className='font-bold text-inherit'>THE ORACLES</p>
         </NavbarBrand>
@@ -21,6 +21,6 @@ export default function OracleNavbar() {
           </NavbarItem>
         </NavbarContent>
       </Navbar>
-      </div>
+    </div>
   );
 }
