@@ -8,12 +8,12 @@ export default function PromptInput() {
     const onSubmit = (e) => {
         e.preventDefault();
         const data = Object.fromEntries(new FormData(e.target));
-        console.log(data);
+        //console.log(data);
         setPrompt(data);
     }
 
     return (
-        <Form className="w-full max-w-xs" onSubmit={onSubmit}>
+        <Form className="w-full max-w-xs flex flex-col gap-3" onSubmit={onSubmit}>
           <Input
             isRequired
             errorMessage="Please enter a valid email"
@@ -23,7 +23,7 @@ export default function PromptInput() {
             placeholder="Enter your email"
             type="email"
           />
-          <Button type="submit" variant="bordered">
+          <Button type="submit" variant="flat">
             Submit
           </Button>
           {prompt && (
