@@ -1,5 +1,7 @@
 import React from 'react'
 import {Form, Input, Button} from '@heroui/react';
+import Response from './Response';
+import { APIProvider } from '@vis.gl/react-google-maps';
 
 
 export default function PromptInput() {
@@ -26,11 +28,11 @@ export default function PromptInput() {
           <Button type="submit" variant="flat">
             Submit
           </Button>
+          <APIProvider apiKey={process.env.GOOGLE_MAPS_API_KEY}>
           {prompt && (
-            <div className="text-small text-default-500">
-              You submitted: <code>{JSON.stringify(prompt)}</code>
-            </div>
+            <Response prompt={prompt} />
           )}
+          </APIProvider>
         </Form>
     );
 

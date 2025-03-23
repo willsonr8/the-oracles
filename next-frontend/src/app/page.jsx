@@ -3,8 +3,12 @@
 import React from 'react';
 import OracleNavbar from './components/OracleNavbar.tsx';
 import PromptInput from './components/PromptInput.tsx';
+import 'dotenv/config';
 
 export default function Page() {
+
+  require('dotenv').config();
+  //console.log(process.env);
   
   return (
     <div className="w-screen h-screen p-8 items-start justify-center">
