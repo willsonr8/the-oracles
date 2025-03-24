@@ -1,41 +1,11 @@
 import 'dotenv/config'
 import React, { useEffect } from 'react'
-import {
-    APIProvider,
-    ControlPosition,
-    MapControl,
-    AdvancedMarker,
-    Map,
-    useMap,
-    useMapsLibrary,
-    useAdvancedMarkerRef,
-    AdvancedMarkerRef
-  } from '@vis.gl/react-google-maps';
 import useHelloWorld from '../hooks/useHelloWorld';
+import useGeolocate from '../hooks/useGeolocate';
 
 export default function Response(prompt) {
 
-    // const geolocate = async (prompt) => {
-    //     const gmaps = useMap();
-    //     useEffect(() => {
-    //         if (prompt) {
-    //             const geocoder = new google.maps.Geocoder();
-    //             geocoder.geocode({address: prompt}, (results, status) => {
-    //                 if (status === google.maps.GeocoderStatus.OK) {
-    //                     gmaps.setCenter(results[0].geometry.location);
-    //                 } else {
-    //                     console.error(`Geocode was not successful for the following reason: ${status}`);
-    //                 }
-    //             });
-    //         }
-    //     }, [prompt]);
-    //     return (
-    //         <div>
-    //             <Map>gmaps</Map>
-    //         </div>
-    //     )
-    // }
-    const response = useHelloWorld();
+    const response = useGeolocate();
     console.log(response);
 
     return (
@@ -46,7 +16,7 @@ export default function Response(prompt) {
             </div>
             <div>
                 {!response.loading && (
-                    <div className="text-default-500">{response.data}</div>
+                    <pre>{JSON.stringify(response.data, null, 2)}</pre>
                 )}
             </div>
         </>

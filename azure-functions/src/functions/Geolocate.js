@@ -2,51 +2,71 @@ const axios = require('axios');
 const { app } = require('@azure/functions');
 
 app.http('Geolocate', {
-    methods: ['GET'],
+    methods: ['GET', 'OPTIONS'],
     authLevel: 'anonymous',
     handler: async (request, context) => {
-        try {
-            const { lat, lng } = req.query;
 
-            if (!lat || !lng) {
-                context.res = {
+        const apiKey = process.env.GOOGLE_MAPS_API_KEY; // Set your Google Maps API key in Azure Function App settings
+
+        try {
+            const lat = request.query.get('lat');
+            const lon = request.query.get('lon');
+
+            if (!lat || !lon) {
+                return {
                     status: 400,
-                    body: "Please provide 'lat' and 'lng' query parameters."
+                    jsonBody: { error: "Please provide 'lat' and 'lon' query parameters."}
                 };
-                return;
             }
 
-            const apiKey = process.env.GOOGLE_MAPS_API_KEY; // Set your Google Maps API key in Azure Function App settings
+            //const apiKey = process.env.GOOGLE_MAPS_API_KEY; // Set your Google Maps API key in Azure Function App settings
             const radius = 5000; // Search radius in meters
             const type = 'restaurant'; // Type of place to search for
 
-            const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=${radius}&type=${type}&key=${apiKey}`;
+            const url = 'https://places.googleapis.com/v1/places:searchNearby';
+            const payload = {
+                includedTypes: ['restaurant'],
+                maxResultCount: 10,
+                locationRestriction: {
+                    circle: {
+                        center: {
+                            latitude: lat,
+                            longitude: lon
+                        },
+                        radius: radius
+                    }
+                }
+            };
+            const headers = {
+                'Content-Type': 'application/json',
+                'X-Goog-Api-Key': apiKey,
+                'X-Goog-FieldMask': 'places.displayName,places.location,places.businessStatus'
+            };
 
-            const response = await axios.get(url);
+            const response = await axios.post(url, payload, { headers });
 
-            context.res = {
+            return {
                 status: 200,
                 headers: {
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-                    'Access-Control-Allow-Headers': 'Content-Tye',
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': 'http://localhost:3000'
                 },
-                body: response.data
+                jsonBody: { places: response.data.places || [] } 
             };
         } catch (error) {
             context.log.error('Error fetching nearby places:', error);
-            context.res = {
+            return {
                 status: 500,
                 headers: {
-                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Origin': 'http://localhost:3000',
                     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-                    'Access-Control-Allow-Headers': 'Content-Tye',
+                    'Access-Control-Allow-Headers': 'Content-Type',
                     'Content-Type': 'application/json'
                 },
-                body: "An error occurred while fetching nearby places."
+                jsonBody: { error: "An error occurred while fetching nearby places." }
             };
         }
-        return context.res;
     }
 });
+
+
