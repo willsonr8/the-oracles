@@ -2,11 +2,13 @@ import 'dotenv/config'
 import React, { useEffect } from 'react'
 import useHelloWorld from '../hooks/useHelloWorld';
 import useGeolocate from '../hooks/useGeolocate';
+import useKeyword from '../hooks/useKeyword';
 
 export default function Response(prompt) {
 
+    const keyword = useKeyword(prompt);
     const response = useGeolocate();
-    console.log(response);
+    console.log(keyword);
 
     return (
         <>
@@ -16,7 +18,7 @@ export default function Response(prompt) {
             </div>
             <div>
                 {!response.loading && (
-                    <pre>{JSON.stringify(response.data, null, 2)}</pre>
+                    <pre>{JSON.stringify(keyword.data, null, 2)}</pre>
                 )}
             </div>
         </>

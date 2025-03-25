@@ -1,29 +1,33 @@
 import React from 'react'
+import { useForm } from 'react-hook-form';
 import {Form, Input, Button} from '@heroui/react';
 import Response from './Response';
 import { APIProvider } from '@vis.gl/react-google-maps';
+import useKeyword from '../hooks/useKeyword';
 
 
 export default function PromptInput() {
+    const { register, handleSubmit } = useForm();
     const [prompt, setPrompt] = React.useState(null);
 
     const onSubmit = (e) => {
-        e.preventDefault();
-        const data = Object.fromEntries(new FormData(e.target));
-        //console.log(data);
-        setPrompt(data);
+        console.log(e);
+        setPrompt(e.prompt);
     }
 
     return (
-        <Form className="w-full max-w-xs flex flex-col gap-3" onSubmit={onSubmit}>
+        <Form className="w-full max-w-xs flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
           <Input
             isRequired
-            errorMessage="Please enter a valid email"
-            label="Email"
+            errorMessage="Please enter a valid prompt"
+            label="Prompt"
             labelPlacement="outside"
-            name="email"
-            placeholder="Enter your email"
-            type="email"
+            name="prompt"
+            placeholder="Enter your prompt"
+            type="prompt"
+            {...register("prompt")}
+            // value={inputValue}
+            // onValueChange={handleChange}
           />
           <Button type="submit" variant="flat">
             Submit
