@@ -4,21 +4,21 @@ import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button } from '@h
 export default function OracleNavbar() {
 
   return (
-    <div>
-      <Navbar isBordered>
-        <NavbarBrand>
-          <p className='font-bold text-inherit'>THE ORACLES</p>
+    <div className="w-full relative">
+      <Navbar isBordered className="relative flex items-center justify-between px-4 sm:px-8">
+        <NavbarBrand className="items-center gap-4">
+          <h1 className="text-2xl font-semibold">The Oracle</h1>
         </NavbarBrand>
-        <NavbarContent className='hidden sm:flex gap-4' justify='center'>
+        <NavbarContent className='ml-auto hidden sm:flex gap-4' justify='end'>
           <NavbarItem>
-            <Link href='/'>Home</Link>
+            <Link className="text-xl" href='/'>Home</Link>
           </NavbarItem>
           <NavbarItem>
-            <Link href='/about'>About</Link>
+            <Link className="text-xl" href='https://github.com/willsonr8/the-oracles/tree/main'>About</Link>
           </NavbarItem>
-          <NavbarItem>
+          {/* <NavbarItem>
             <Link href='/contact'>Contact</Link>
-          </NavbarItem>
+          </NavbarItem> */}
         </NavbarContent>
       </Navbar>
     </div>

@@ -16,31 +16,30 @@ export default function PromptInput() {
     }
 
     return (
-      <div>
-        <div className="w-full max-w-xl flex flex-col gap-3 items-center">
-        <Form className="w-full max-w-xl flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
+      <div className="w-full flex flex-col items-center justify-center">
+        <div className="w-full max-w-xl items-center justify-center flex pb-8">
+        <Form className="w-full" onSubmit={handleSubmit(onSubmit)}>
+        <div className="flex items-center gap-2 justify-end w-full">
           <Input
             isRequired
             errorMessage="Please enter a valid prompt"
-            label="Prompt"
-            labelPlacement="outside"
             name="prompt"
-            placeholder="Enter your prompt"
+            placeholder="Tell the Oracle what you desire to eat..."
             type="prompt"
+            className="flex-grow bg-gray-800 rounded-full text-white py-1 px-2"
             {...register("prompt")}
           />
-          <Button type="submit" variant="flat" color="success">
-            Submit
+          <Button type="submit" radius="full" className="bg-purple-500 text-gray-200 hover:bg-purple-600 cursor-pointer rounded-full py-1 px-3">
+            Search
           </Button>
+        </div>
         </Form>
         </div>
-        <div className="max-w-3xl">
+        {prompt && (<div className="max-w-3xl rounded bg-gray-800 p-4">
           <APIProvider apiKey={process.env.GOOGLE_MAPS_API_KEY}>
-          {prompt && (
             <Response prompt={prompt} />
-          )}
           </APIProvider>
-        </div>
+        </div>)}
       </div>
     );
 

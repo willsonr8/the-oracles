@@ -12,20 +12,15 @@ export default function Response({ prompt }) {
     const { data: suggestionsData, loading: suggestionsLoading, error: suggestionsError} = useSuggestions(geolocateData, prompt, keywordData);
 
     if (keywordLoading || geolocateLoading || suggestionsLoading) {
-        return <div>Loading...</div>;
+        return <div>The Oracle is thinking...</div>;
     }
 
     return (
-        <>
-            {/* <div className="flex flex-col gap-3">
-                <div className="text-2xl font-bold">Response</div>
-                <div className="text-default-500">Response content</div>
-            </div> */}
-            <div>
-                {!suggestionsLoading && (
-                    <pre>{suggestionsData.places}</pre>
-                )}
-            </div>
-        </>
+        
+        <div>
+            {!suggestionsLoading && (
+                <pre>{suggestionsData.places}</pre>
+            )}
+        </div>
     )
 }

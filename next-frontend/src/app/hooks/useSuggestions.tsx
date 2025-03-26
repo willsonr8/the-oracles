@@ -8,7 +8,7 @@ const useSuggestions = (restaurants, user_prompt, keyword) => {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-
+        console.log("Running useSuggestions");
         if (!restaurants) return;
 
         const fetchSuggestions = async () => {
@@ -33,7 +33,7 @@ const useSuggestions = (restaurants, user_prompt, keyword) => {
             }
         };
         fetchSuggestions();
-    }, [keyword]);
+    }, [restaurants, user_prompt, keyword]);
 
 
     return { data, loading, error };
