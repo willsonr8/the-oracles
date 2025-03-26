@@ -7,7 +7,8 @@ prompt_dict = {
         "earn a raise if you do well. You should be prioritizing by restaurant rating and number of reviews.",
     2: "You are a personal assistant and your user needs help finding a restaurant." + 
         "Use the following list of local restaurants to help them find a place to eat. Avoid repeat suggestions such as the same chain with multiple locations." + 
-        "Promote style variety in your suggestions. Limit your suggestions to a maximum of 5 places. You should be prioritizing by restaurant rating and number of reviews.",
+        "Promote style variety in your suggestions. Limit your suggestions to a maximum of 5 places. You should be prioritizing by restaurant rating and number of reviews" +
+        "and make sure to include the restaurant name, address, rating, price range, website, and general comments in your structured response.",
     3: "",
     4: "",
 }
@@ -24,10 +25,11 @@ app.http('Suggestions', {
                 const restaurants = data.restaurants;
                 const user_prompt = data.user_prompt;
                 
-                context.log("Restaurant list: ", restaurants);
-                context.log("User prompt: ", user_prompt);
+                //context.log("Restaurant list: ", JSON.stringify(restaurants.places));
+                //context.log("Display Name ==================== ", restaurants.places[0].displayName);
+                //context.log("User prompt: ", user_prompt);
 
-                const prompt = prompt_dict[2] + " Here are the restaurants: " + restaurants + ". Here is more information from the user: " + user_prompt;
+                const prompt = prompt_dict[2] + " Here are the restaurants: " + JSON.stringify(restaurants.places) + ". Here is more information from the user: " + user_prompt;
                 const response = await client.chat.completions.create({
                     model: 'gpt-4o-mini',
                     messages: [
@@ -41,15 +43,19 @@ app.http('Suggestions', {
                         ]},
                     ]
                 });
-                context.log("Response data: ", response);
-                context.log("Message content: ", response.choices[0].message.content)
+
+                //context.log("Response data: ", response);
+                //context.log("Message content: ", response.choices[0].message.content)
+
                 return {
                     status: 200,
                     headers: {
                         'Content-Type': 'application/json',
                         'Access-Control-Allow-Origin': 'http://localhost:3000'
                     },
-                    jsonBody: { keyword: response.choices[0].message.content }
+
+                    jsonBody: { places: response.choices[0].message.content }
+
                 }
             }
             catch {

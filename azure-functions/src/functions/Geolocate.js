@@ -14,6 +14,7 @@ app.http('Geolocate', {
             const lon = data.lon;
             const keyword = data.keyword;
 
+
             //context.log('Received request with lat:', lat, 'lon:', lon, 'keyword:', keyword);
 
             if (!lat || !lon) {
@@ -44,7 +45,7 @@ app.http('Geolocate', {
             const headers = {
                 'Content-Type': 'application/json',
                 'X-Goog-Api-Key': apiKey,
-                'X-Goog-FieldMask': 'places.displayName,places.location,places.businessStatus'
+                'X-Goog-FieldMask': 'places.displayName,places.formattedAddress,places.priceRange,places.rating,places.userRatingCount,places.websiteUri'
             };
 
             const response = await axios.post( url, payload, {headers} );

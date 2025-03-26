@@ -7,12 +7,6 @@ import useSuggestions from '../hooks/useSuggestions';
 
 export default function Response({ prompt }) {
 
-    // const keyword = useKeyword(prompt);
-    // console.log("Keyword returned by useKeyword: ", keyword.data || "No keyword found");
-    // const restaurants = useGeolocate(keyword.data);
-    // console.log("Restaurant list returned by useGeolocate", restaurants || "No restaurant list found");
-    // const suggestions = useSuggestions(restaurants.data, prompt);
-
     const { data: keywordData, loading: keywordLoading, error: keywordError} = useKeyword(prompt);
     const { data: geolocateData, loading: geolocateLoading, error: geolocateError} = useGeolocate(keywordData);
     const { data: suggestionsData, loading: suggestionsLoading, error: suggestionsError} = useSuggestions(geolocateData, prompt);

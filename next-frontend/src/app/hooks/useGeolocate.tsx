@@ -7,6 +7,7 @@ const useGeolocate = (keyword) => {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
+        if (!keyword) return;
         const fetchGeolocate = async () => {
             try {
                 const position = await new Promise<GeolocationPosition>((resolve, reject) => 
