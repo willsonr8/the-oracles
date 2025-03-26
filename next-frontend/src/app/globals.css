@@ -24,3 +24,11 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+pre {
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-wrap: normal;
+  border-radius: 0.25rem;
+  padding: 1rem;
+}

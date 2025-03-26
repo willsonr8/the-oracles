@@ -33,7 +33,7 @@ const useKeyword = (prompt) => {
         };
 
         fetchKeyword();
-    }, []);
+    }, [prompt]);
 
     return { data, loading, error };
 };

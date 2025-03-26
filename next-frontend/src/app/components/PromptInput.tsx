@@ -16,7 +16,9 @@ export default function PromptInput() {
     }
 
     return (
-        <Form className="w-full max-w-xs flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
+      <div>
+        <div className="w-full max-w-xl flex flex-col gap-3 items-center">
+        <Form className="w-full max-w-xl flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
           <Input
             isRequired
             errorMessage="Please enter a valid prompt"
@@ -26,18 +28,20 @@ export default function PromptInput() {
             placeholder="Enter your prompt"
             type="prompt"
             {...register("prompt")}
-            // value={inputValue}
-            // onValueChange={handleChange}
           />
-          <Button type="submit" variant="flat">
+          <Button type="submit" variant="flat" color="success">
             Submit
           </Button>
+        </Form>
+        </div>
+        <div className="max-w-3xl">
           <APIProvider apiKey={process.env.GOOGLE_MAPS_API_KEY}>
           {prompt && (
             <Response prompt={prompt} />
           )}
           </APIProvider>
-        </Form>
+        </div>
+      </div>
     );
 
 }

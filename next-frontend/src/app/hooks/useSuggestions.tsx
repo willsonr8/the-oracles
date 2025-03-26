@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 
 
-const useSuggestions = (restaurants, user_prompt) => {
+const useSuggestions = (restaurants, user_prompt, keyword) => {
     const [data, setData] = useState<any>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -13,7 +13,7 @@ const useSuggestions = (restaurants, user_prompt) => {
 
         const fetchSuggestions = async () => {
             try {
-                console.log(prompt);
+                console.log("Running useSuggestions");
                 const response = await axios.post('http://localhost:7071/api/Suggestions',
                     {
                         restaurants: restaurants,
@@ -33,7 +33,7 @@ const useSuggestions = (restaurants, user_prompt) => {
             }
         };
         fetchSuggestions();
-    }, [restaurants, prompt]);
+    }, [keyword]);
 
 
     return { data, loading, error };

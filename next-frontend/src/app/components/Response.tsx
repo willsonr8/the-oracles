@@ -9,21 +9,21 @@ export default function Response({ prompt }) {
 
     const { data: keywordData, loading: keywordLoading, error: keywordError} = useKeyword(prompt);
     const { data: geolocateData, loading: geolocateLoading, error: geolocateError} = useGeolocate(keywordData);
-    const { data: suggestionsData, loading: suggestionsLoading, error: suggestionsError} = useSuggestions(geolocateData, prompt);
+    const { data: suggestionsData, loading: suggestionsLoading, error: suggestionsError} = useSuggestions(geolocateData, prompt, keywordData);
 
-    // if (keywordLoading || geolocateLoading || suggestionsLoading) {
-    //     return <div>Loading...</div>;
-    // }
+    if (keywordLoading || geolocateLoading || suggestionsLoading) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <>
-            <div className="flex flex-col gap-3">
+            {/* <div className="flex flex-col gap-3">
                 <div className="text-2xl font-bold">Response</div>
                 <div className="text-default-500">Response content</div>
-            </div>
+            </div> */}
             <div>
                 {!suggestionsLoading && (
-                    <pre>{JSON.stringify(suggestionsData, null, 2)}</pre>
+                    <pre>{suggestionsData.places}</pre>
                 )}
             </div>
         </>
