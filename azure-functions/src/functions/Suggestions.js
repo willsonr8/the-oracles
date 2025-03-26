@@ -43,15 +43,19 @@ app.http('Suggestions', {
                         ]},
                     ]
                 });
+
                 //context.log("Response data: ", response);
                 //context.log("Message content: ", response.choices[0].message.content)
+
                 return {
                     status: 200,
                     headers: {
                         'Content-Type': 'application/json',
                         'Access-Control-Allow-Origin': 'http://localhost:3000'
                     },
+
                     jsonBody: { places: response.choices[0].message.content }
+
                 }
             }
             catch {

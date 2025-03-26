@@ -14,7 +14,8 @@ app.http('Geolocate', {
             const lon = data.lon;
             const keyword = data.keyword;
 
-            context.log('Received request with lat:', lat, 'lon:', lon, 'keyword:', keyword);
+
+            //context.log('Received request with lat:', lat, 'lon:', lon, 'keyword:', keyword);
 
             if (!lat || !lon) {
                 return {
