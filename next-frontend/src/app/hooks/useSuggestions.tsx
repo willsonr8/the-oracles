@@ -2,28 +2,27 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 
 
-const useKeyword = (prompt) => {
+const useSuggestions = (restaurants, user_prompt) => {
     const [data, setData] = useState<any>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
-    //console.log("Prompt: ", prompt);
-
     useEffect(() => {
-        const fetchKeyword = async () => {
+        if (!restaurants) return;
+        const fetchSuggestions = async () => {
             try {
-                const response = await axios.post('http://localhost:7071/api/Keyword',
+                console.log(prompt);
+                const response = await axios.post('http://localhost:7071/api/Suggestions',
                     {
-                        prompt: prompt
+                        restaurants: restaurants,
+                        user_prompt: user_prompt
                     }, 
                     {
-                        headers: 
-                        {
+                        headers: {
                             'Content-Type': 'application/json'
                         }
                     }
                 );
-                //console.log(response.data);
                 setData(response.data);
             } catch (err) {
                 setError(err instanceof Error ? err.message : 'An error occurred');
@@ -31,11 +30,10 @@ const useKeyword = (prompt) => {
                 setLoading(false);
             }
         };
-
-        fetchKeyword();
-    }, []);
+        fetchSuggestions();
+    }, [restaurants, prompt]);
 
     return { data, loading, error };
 };
 
-export default useKeyword;
+export default useSuggestions;
