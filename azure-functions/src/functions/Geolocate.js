@@ -1,16 +1,20 @@
-const axios = require('axios');
 const { app } = require('@azure/functions');
+const axios = require('axios');
 
 app.http('Geolocate', {
-    methods: ['GET', 'OPTIONS'],
-    authLevel: 'anonymous',
+    // methods: ['GET', 'OPTIONS'],
+    // authLevel: 'anonymous',
     handler: async (request, context) => {
 
         const apiKey = process.env.GOOGLE_MAPS_API_KEY; // Set your Google Maps API key in Azure Function App settings
 
         try {
-            const lat = request.query.get('lat');
-            const lon = request.query.get('lon');
+            const data = await request.json();
+            const lat = data.lat;
+            const lon = data.lon;
+            const keyword = data.keyword;
+
+            //context.log('Received request with lat:', lat, 'lon:', lon, 'keyword:', keyword);
 
             if (!lat || !lon) {
                 return {
@@ -25,7 +29,7 @@ app.http('Geolocate', {
 
             const url = 'https://places.googleapis.com/v1/places:searchNearby';
             const payload = {
-                includedTypes: ['restaurant'],
+                includedTypes: [keyword.keyword],
                 maxResultCount: 10,
                 locationRestriction: {
                     circle: {
@@ -43,7 +47,7 @@ app.http('Geolocate', {
                 'X-Goog-FieldMask': 'places.displayName,places.location,places.businessStatus'
             };
 
-            const response = await axios.post(url, payload, { headers });
+            const response = await axios.post( url, payload, {headers} );
 
             return {
                 status: 200,
@@ -54,7 +58,7 @@ app.http('Geolocate', {
                 jsonBody: { places: response.data.places || [] } 
             };
         } catch (error) {
-            context.log.error('Error fetching nearby places:', error);
+            context.log('Error fetching nearby places:', error);
             return {
                 status: 500,
                 headers: {
