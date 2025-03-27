@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/azure/functions-action
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy Node.js project to Azure Function App - the-oracles-v1
+name: Build and deploy Node.js project to Azure Function App - the-oracles-v2
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.' # set this to the path to your web app project, defaults to the repository root
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: './azure-functions' # set this to the path to your web app project, defaults to the repository root
   NODE_VERSION: '20' # set this to the node version to use (supports 8.x, 10.x, 12.x)
 
 jobs:
@@ -63,7 +63,7 @@ jobs:
         uses: Azure/functions-action@v1
         id: fa
         with:
-          app-name: 'the-oracles-v1'
+          app-name: 'the-oracles-v2'
           slot-name: 'Production'
           package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_78B0EE2E62CC4FE782DDB78690129ABF }}
