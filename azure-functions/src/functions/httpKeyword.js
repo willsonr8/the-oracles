@@ -69,7 +69,7 @@ const all_types = [
   ]
   
 
-app.http('Keyword', {
+app.http('httpKeyword', {
     methods: ['GET', 'POST'],
     authLevel: 'anonymous',
     handler: async (request, context) => {

@@ -1,7 +1,7 @@
 const { app } = require('@azure/functions');
 const axios = require('axios');
 
-app.http('Geolocate', {
+app.http('httpGeolocate', {
     methods: ['GET', 'POST'],
     authLevel: 'anonymous',
     handler: async (request, context) => {

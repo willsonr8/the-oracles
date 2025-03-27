@@ -13,7 +13,7 @@ prompt_dict = {
     4: "",
 }
 
-app.http('Suggestions', {
+app.http('httpSuggestions', {
     methods: ['GET', 'POST'],
     authLevel: 'anonymous',
     handler: async (request, context) => {
