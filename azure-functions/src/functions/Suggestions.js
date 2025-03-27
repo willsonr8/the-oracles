@@ -14,6 +14,8 @@ prompt_dict = {
 }
 
 app.http('Suggestions', {
+    methods: ['GET', 'POST'],
+    authLevel: 'anonymous',
     handler: async (request, context) => {
             const client = new OpenAI({
                 apiKey: process.env.OPENAI_API_KEY

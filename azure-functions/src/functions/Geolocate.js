@@ -2,8 +2,8 @@ const { app } = require('@azure/functions');
 const axios = require('axios');
 
 app.http('Geolocate', {
-    // methods: ['GET', 'OPTIONS'],
-    // authLevel: 'anonymous',
+    methods: ['GET', 'POST'],
+    authLevel: 'anonymous',
     handler: async (request, context) => {
 
         const apiKey = process.env.GOOGLE_MAPS_API_KEY; // Set your Google Maps API key in Azure Function App settings

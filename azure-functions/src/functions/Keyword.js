@@ -70,6 +70,8 @@ const all_types = [
   
 
 app.http('Keyword', {
+    methods: ['GET', 'POST'],
+    authLevel: 'anonymous',
     handler: async (request, context) => {
             const client = new OpenAI({
                 apiKey: process.env.OPENAI_API_KEY
