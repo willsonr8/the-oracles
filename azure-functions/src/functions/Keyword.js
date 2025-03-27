@@ -101,7 +101,7 @@ app.http('Keyword', {
                     status: 200,
                     headers: {
                         'Content-Type': 'application/json',
-                        'Access-Control-Allow-Origin': 'http://localhost:3000'
+                        //'Access-Control-Allow-Origin': 'http://localhost:3000'
                     },
                     jsonBody: { keyword: response.choices[0].message.content }
                 }
@@ -111,7 +111,7 @@ app.http('Keyword', {
                     status: 500,
                     headers: {
                         'Content-Type': 'application/json',
-                        'Access-Control-Allow-Origin': 'http://localhost:3000'
+                        //'Access-Control-Allow-Origin': 'http://localhost:3000'
                     },
                     jsonBody: { error: "An error occurred while fetching the keyword." }
                 }

@@ -8,8 +8,9 @@ const useHelloWorld = () => {
 
     useEffect(() => {
         const fetchHelloWorld = async () => {
+            const apiUrl = process.env.NEXT_PUBLIC_API_URL;
             try {
-                const response = await axios.get('http://localhost:7071/api/HelloWorld');
+                const response = await axios.get(`${apiUrl}/HelloWorld`);
                 setData(response.data.message);
             } catch (err) {
                 setError(err instanceof Error ? err.message : 'An error occurred');

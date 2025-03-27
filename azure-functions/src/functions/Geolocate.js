@@ -54,7 +54,7 @@ app.http('Geolocate', {
                 status: 200,
                 headers: {
                     'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': 'http://localhost:3000'
+                    //'Access-Control-Allow-Origin': 'http://localhost:3000'
                 },
                 jsonBody: { places: response.data.places || [] } 
             };
@@ -63,7 +63,7 @@ app.http('Geolocate', {
             return {
                 status: 500,
                 headers: {
-                    'Access-Control-Allow-Origin': 'http://localhost:3000',
+                    //'Access-Control-Allow-Origin': 'http://localhost:3000',
                     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
                     'Access-Control-Allow-Headers': 'Content-Type',
                     'Content-Type': 'application/json'
