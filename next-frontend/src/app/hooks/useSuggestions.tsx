@@ -8,13 +8,14 @@ const useSuggestions = (restaurants, user_prompt, keyword) => {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        console.log("Running useSuggestions");
+        //console.log("Running useSuggestions");
         if (!restaurants) return;
 
         const fetchSuggestions = async () => {
             try {
-                console.log("Running useSuggestions");
-                const response = await axios.post('http://localhost:7071/api/Suggestions',
+                //console.log("Running useSuggestions");
+                const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+                const response = await axios.post(`${apiUrl}/Suggestions`,
                     {
                         restaurants: restaurants,
                         user_prompt: user_prompt

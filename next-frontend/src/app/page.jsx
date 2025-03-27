@@ -1,14 +1,12 @@
 'use client'
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import OracleNavbar from './components/OracleNavbar.tsx';
 import PromptInput from './components/PromptInput.tsx';
+import Head from 'next/head';
 import 'dotenv/config';
 
 export default function Page() {
-
-  // require('dotenv').config();
-  //console.log(process.env);
   
   return (
     <div className="w-screen h-screenitems-start justify-center">

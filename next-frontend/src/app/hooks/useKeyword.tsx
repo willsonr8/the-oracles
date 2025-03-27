@@ -12,7 +12,8 @@ const useKeyword = (prompt) => {
     useEffect(() => {
         const fetchKeyword = async () => {
             try {
-                const response = await axios.post('http://localhost:7071/api/Keyword',
+                const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+                const response = await axios.post(`${apiUrl}/Keyword`,
                     {
                         prompt: prompt
                     }, 

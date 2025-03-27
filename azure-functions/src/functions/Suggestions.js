@@ -51,7 +51,7 @@ app.http('Suggestions', {
                     status: 200,
                     headers: {
                         'Content-Type': 'application/json',
-                        'Access-Control-Allow-Origin': 'http://localhost:3000'
+                        //'Access-Control-Allow-Origin': 'http://localhost:3000'
                     },
 
                     jsonBody: { places: response.choices[0].message.content }
@@ -63,7 +63,7 @@ app.http('Suggestions', {
                     status: 500,
                     headers: {
                         'Content-Type': 'application/json',
-                        'Access-Control-Allow-Origin': 'http://localhost:3000'
+                        //'Access-Control-Allow-Origin': 'http://localhost:3000'
                     },
                     jsonBody: { error: "An error occurred while fetching the keyword." }
                 }
