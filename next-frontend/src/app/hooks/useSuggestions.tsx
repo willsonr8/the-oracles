@@ -15,7 +15,7 @@ const useSuggestions = (restaurants, user_prompt, keyword) => {
             try {
                 //console.log("Running useSuggestions");
                 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-                const response = await axios.post(`${apiUrl}/Suggestions`,
+                const response = await axios.post(`${apiUrl}/httpSuggestions`,
                     {
                         restaurants: restaurants,
                         user_prompt: user_prompt

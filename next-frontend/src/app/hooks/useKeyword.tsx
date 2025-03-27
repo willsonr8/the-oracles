@@ -13,7 +13,7 @@ const useKeyword = (prompt) => {
         const fetchKeyword = async () => {
             try {
                 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-                const response = await axios.post(`${apiUrl}/Keyword`,
+                const response = await axios.post(`${apiUrl}/httpKeyword`,
                     {
                         prompt: prompt
                     }, 

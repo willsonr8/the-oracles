@@ -20,7 +20,7 @@ const useGeolocate = (keyword) => {
                 //console.log("Longitude: ", lon);
                 //console.log("Keyword received in useGeolocate: ", keyword);
                 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-                const response = await axios.post(`${apiUrl}/Geolocate`, 
+                const response = await axios.post(`${apiUrl}/httpGeolocate`, 
                     {
                         lat: lat,
                         lon: lon,
