@@ -1,0 +1,15 @@
+{
+  "routes": [
+    {
+      "route": "/api/*",
+      "methods": [
+        "get",
+        "post"
+      ],
+      "rewrite": "https://the-oracles-v1.azurewebsites.net/api/:*",
+      "allowedRoles": [
+        "anonymous"
+      ]
+    }
+  ]
+}
