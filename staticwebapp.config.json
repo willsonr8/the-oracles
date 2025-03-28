@@ -10,6 +10,17 @@
       "allowedRoles": [
         "anonymous"
       ]
+    },
+    {
+      "route": "/api/httpKeyword",
+      "methods": [
+        "get",
+        "post"
+      ],
+      "redirect": "https://the-oracles-v1.azurewebsites.net/api/httpKeyword",
+      "allowedRoles": [
+        "anonymous"
+      ]
     }
   ]
 }
