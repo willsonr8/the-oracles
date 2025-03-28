@@ -6,7 +6,7 @@
         "get",
         "post"
       ],
-      "rewrite": "https://the-oracles-v1.azurewebsites.net/api/*",
+      "rewrite": "https://the-oracles-v1.azurewebsites.net/api/:*",
       "allowedRoles": [
         "anonymous"
       ]
