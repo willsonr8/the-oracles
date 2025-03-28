@@ -13,7 +13,7 @@ const useKeyword = (prompt) => {
         const fetchKeyword = async () => {
             try {
                 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-                const response = await axios.post('/api/httpKeyword',
+                const response = await axios.post('https://the-oracles-v1.azurewebsites.net/api/httpKeyword',
                     {
                         prompt: prompt
                     }, 

@@ -10,7 +10,7 @@ const useHelloWorld = () => {
         const fetchHelloWorld = async () => {
             const apiUrl = process.env.NEXT_PUBLIC_API_URL;
             try {
-                const response = await axios.get('/api/httpHelloWorld');
+                const response = await axios.get('https://the-oracles-v1.azurewebsites.net/api/httpHelloWorld');
                 setData(response.data.message);
             } catch (err) {
                 setError(err instanceof Error ? err.message : 'An error occurred');
