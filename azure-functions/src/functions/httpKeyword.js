@@ -1,5 +1,6 @@
-const { app } = require('@azure/functions');
-const { OpenAI } = require('openai');
+import ollama from 'ollama';
+import {app} from '@azure/functions';
+
 
 const all_types = [
     "acai_shop",
@@ -66,57 +67,57 @@ const all_types = [
     "vegetarian_restaurant",
     "vietnamese_restaurant",
     "wine_bar"
-  ]
-  
+]
+
 
 app.http('httpKeyword', {
     methods: ['GET', 'POST'],
     authLevel: 'anonymous',
     handler: async (request, context) => {
-            const client = new OpenAI({
-                apiKey: process.env.OPENAI_API_KEY
-            });
+        try {
+            const prompt = await request.json();
+            // const response = await ollama.generate({
+            //     model: 'llama3',
+            //     prompt: `You are to tasked with analyzing a text prompt and
+            //              determining the keyword that the user is looking for.
+            //              Here is a list of all possible keywords. Be as specific as possible.
+            //              You must respond with exactly one word, and keywords must originate
+            //              from this list: ${all_types}. Do not add any additional characters
+            //              in your response. You must choose a phrase from the aforementioned list.
+            //              Here is the prompt: ${prompt.prompt}`,
+            // });
+            const response = await ollama.chat({
+                model: 'llama3',
+                messages: [{role: 'system', content: `You are to tasked with analyzing a text prompt and
+                         determining the keyword that the user is looking for.
+                         Here is a list of all possible keywords. Be as specific as possible.
+                         You must respond with exactly one word, and keywords must originate
+                         from this list: ${all_types}. Do not add any additional characters 
+                         in your response. You must choose a phrase from the aforementioned list. 
+                         Here is the prompt: ${prompt.prompt}`
+                }],
+                think: "medium",
+                format: "string",
+                keep_alive: 5,
 
-            try {
-                const prompt = await request.json();
-                //context.log("Prompt: ", prompt.prompt);
-                const response = await client.chat.completions.create({
-                    model: 'gpt-4o-mini',
-                    messages: [
-                        { 
-                            "role": "user", 
-                            "content": [
-                            {
-                                "type":"text",
-                                "text": `You are to tasked with analyzing a text prompt and 
-                                determining the keyword that the user is looking for. 
-                                Here is a list of all possible keywords. Be as specific as possible. 
-                                You must respond with exactly one word, and keywords must originate 
-                                from this list:", ${all_types}. "Here is the prompt: ", ${prompt.prompt}`
-                            }
-                        ]},
-                    ]
-                });
-                //context.log("Response data: ", response.choices);
-                //context.log("Message content: ", response.choices[0].message.content)
-                return {
-                    status: 200,
-                    headers: {
-                        'Content-Type': 'application/json',
-                        //'Access-Control-Allow-Origin': 'http://localhost:3000'
-                    },
-                    jsonBody: { keyword: response.choices[0].message.content }
-                }
+            });
+            return {
+                status: 200,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': 'http://localhost:3000'
+                },
+                jsonBody: { keyword: response.response }
             }
-            catch {
-                return {
-                    status: 500,
-                    headers: {
-                        'Content-Type': 'application/json',
-                        //'Access-Control-Allow-Origin': 'http://localhost:3000'
-                    },
-                    jsonBody: { error: "An error occurred while fetching the keyword." }
-                }
+        } catch {
+            return {
+                status: 500,
+                headers: {
+                    'Content-Type': 'application/json',
+                    //'Access-Control-Allow-Origin': 'http://localhost:3000'
+                },
+                jsonBody: {error: 'An error occurred while fetching the keyword'}
             }
         }
+    }
 });

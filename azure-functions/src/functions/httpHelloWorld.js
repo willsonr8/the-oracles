@@ -1,4 +1,4 @@
-const { app } = require('@azure/functions');
+import { app } from '@azure/functions';
 
 app.http('httpHelloWorld', {
     methods: ['GET', 'POST'],
@@ -10,7 +10,7 @@ app.http('httpHelloWorld', {
 
         return { status: 200, 
                 headers: {
-                    //'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Origin': 'http://localhost:3000',
                     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
                     'Access-Control-Allow-Headers': 'Content-Type',
                     'Content-Type': 'application/json'

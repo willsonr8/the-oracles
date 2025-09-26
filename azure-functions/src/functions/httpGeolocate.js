@@ -1,5 +1,5 @@
-const { app } = require('@azure/functions');
-const axios = require('axios');
+import { app } from '@azure/functions';
+import axios from 'axios';
 
 app.http('httpGeolocate', {
     methods: ['GET', 'POST'],

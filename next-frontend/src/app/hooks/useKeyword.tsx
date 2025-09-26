@@ -7,13 +7,11 @@ const useKeyword = (prompt) => {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
-    //console.log("Prompt: ", prompt);
-
     useEffect(() => {
         const fetchKeyword = async () => {
             try {
                 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-                const response = await axios.post('https://the-oracles-v1.azurewebsites.net/api/httpKeyword',
+                const response = await axios.post(`${apiUrl}/httpKeyword`,
                     {
                         prompt: prompt
                     }, 
@@ -24,7 +22,7 @@ const useKeyword = (prompt) => {
                         }
                     }
                 );
-                //console.log(response.data);
+                console.log(response.data);
                 setData(response.data);
             } catch (err) {
                 setError(err instanceof Error ? err.message : 'An error occurred');

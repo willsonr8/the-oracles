@@ -1,7 +1,7 @@
-const { app } = require('@azure/functions');
-const { OpenAI } = require('openai');
+import { app } from '@azure/functions';
+import ollama from 'ollama';
 
-prompt_dict = {
+const prompt_dict = {
     1:"You are a personal assistant and your user needs help finding a restaurant that fits within their budget and current preferences." + 
         "Use the following list of local restaurants to help them find a place to eat. You will be graded on your performance and possibly" + 
         "earn a raise if you do well. You should be prioritizing by restaurant rating and number of reviews.",
